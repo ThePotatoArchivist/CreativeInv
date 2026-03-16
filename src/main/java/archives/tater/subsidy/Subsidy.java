@@ -8,8 +8,8 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
-import net.minecraft.server.permissions.Permissions;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.player.Player;
 
@@ -23,8 +23,8 @@ import static net.minecraft.commands.Commands.literal;
 public class Subsidy implements ModInitializer {
 	public static final String MOD_ID = "subsidy";
 
-    public static Identifier id(String path) {
-        return Identifier.fromNamespaceAndPath(MOD_ID, path);
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
 	// This logger is used to write text to the console and the log file.
@@ -34,7 +34,7 @@ public class Subsidy implements ModInitializer {
 
     public static final AttachmentType<Unit> CREATIVE_INVENTORY = AttachmentRegistry.create(id("creative_inventory"), builder -> builder
             .persistent(Unit.CODEC)
-            .syncWith(Unit.STREAM_CODEC, AttachmentSyncPredicate.targetOnly())
+            .syncWith(StreamCodec.unit(Unit.INSTANCE), AttachmentSyncPredicate.targetOnly())
             .copyOnDeath());
 
     public static boolean hasCreativeInventory(Player player) {
@@ -49,7 +49,7 @@ public class Subsidy implements ModInitializer {
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(literal("creative_inv")
-                    .requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER))
+                    .requires(source -> source.hasPermission(3))
                     .then(literal("enable")
                             .executes(command -> {
                                 command.getSource().getPlayerOrException().setAttached(CREATIVE_INVENTORY, Unit.INSTANCE);
