@@ -1,0 +1,23 @@
+# Shared and per-version/per-loader properties, see
+# https://stonecutter.kikugie.dev/wiki/config/properties#centralized-properties
+mod.id = "subsidy"
+mod.name = "Subsidy"
+mod.group = "archives.tater.subsidy"
+mod.version = "1.1.1"
+
+deps.fabric_loader = "0.19.3"
+
+["26.1.2"]
+# List of releases to be marked compatible on Modrinth/Curseforge
+mod.mc_releases = ["26.1.2"]
+
+[fabric."26.1.2"]
+# Mod compatibility range in fabric.mod.json (~26.1.2 means >=26.1.2 <26.2)
+mod.mc_compat = "~26.1.2"
+# check this on https://fabricmc.net/develop
+deps.fabric_api = "0.154.2+26.1.2"
+
+[neoforge."26.1.2"]
+mod.mc_compat = "[26.1.2,26.2)"
+# check this on https://projects.neoforged.net/neoforged/neoforge
+deps.neo_loader = "26.1.2.78"

@@ -1,0 +1,33 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/GaborWnuk/Subsidy/issues"
+
+[[mods]]
+modId = "subsidy"
+version = "${version}"
+displayName = "Subsidy"
+displayURL = "https://github.com/GaborWnuk/Subsidy"
+logoFile = "assets/subsidy/icon.png"
+authors = "ThePotatoArchivist, GaborWnuk"
+description = '''Creative inventory in survival mode'''
+
+[[mixins]]
+config = "subsidy.mixins.json"
+
+[[mixins]]
+config = "subsidy.client.mixins.json"
+
+[[dependencies.subsidy]]
+modId = "neoforge"
+type = "required"
+versionRange = "${minecraftVersionRange}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.subsidy]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraftVersionRange}"
+ordering = "NONE"
+side = "BOTH"

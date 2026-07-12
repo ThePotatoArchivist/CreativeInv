@@ -1,10 +1,12 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
+name: publish
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '**'
 
-name: build
-on: [pull_request, push, workflow_dispatch]
+permissions:
+  contents: write
 
 jobs:
   find_versions:
@@ -25,6 +27,8 @@ jobs:
       matrix:
         minecraftVersion: ${{ fromJson(needs.find_versions.outputs.minecraftVersions) }}
       fail-fast: false
+      # Serialize jobs so the release for the tag is created once, not raced
+      max-parallel: 1
     runs-on: ubuntu-latest
     needs: find_versions
     steps:
@@ -43,10 +47,31 @@ jobs:
         run: ./gradlew "Set active project to ${{ matrix.minecraftVersion }}"
 
       - name: Build
-        run: ./gradlew :${{ matrix.minecraftVersion }}:build
+        run: ./gradlew clean :${{ matrix.minecraftVersion }}:build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: Subsidy-${{ matrix.minecraftVersion }}
           path: versions/${{ matrix.minecraftVersion }}/build/libs/
+
+      - name: get changelog
+        id: changelog
+        run: |
+          # Get the latest changelog from CHANGELOG.md
+          {
+            echo "changelog<<EOF"
+            awk 'p && /^#/ { exit } p && NF { print } /^#/ { p=1 }' CHANGELOG.md
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
+      - name: publish to GitHub Releases
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          name: Subsidy ${{ github.ref_name }}
+          changelog: ${{ steps.changelog.outputs.changelog }}
+          files: |
+            versions/${{ matrix.minecraftVersion }}/build/libs/*.jar
+          github-tag: ${{ github.ref_name }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
