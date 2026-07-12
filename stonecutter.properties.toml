@@ -3,7 +3,7 @@
 mod.id = "subsidy"
 mod.name = "Subsidy"
 mod.group = "archives.tater.subsidy"
-mod.version = "1.1.0"
+mod.version = "1.1.1"
 
 deps.fabric_loader = "0.19.3"
 

@@ -1,3 +1,7 @@
+# v1.1.1
+
+- (NeoForge) Fixed the creative inventory flag no longer working after reconnecting to the server: NeoForge silently drops zero-byte attachment payloads from the initial login sync, so the sync codec now writes a marker byte
+
 # v1.1.0
 
 - Added NeoForge support for Minecraft 26.1.2

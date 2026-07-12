@@ -3,6 +3,7 @@ package archives.tater.subsidy;
 //? if neoforge {
 /*import com.mojang.serialization.MapCodec;
 
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.util.Unit;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -21,8 +22,11 @@ public class SubsidyNeoForge {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Unit>> CREATIVE_INVENTORY =
             ATTACHMENT_TYPES.register("creative_inventory", () -> AttachmentType.builder(() -> Unit.INSTANCE)
                     .serialize(MapCodec.unit(Unit.INSTANCE))
-                    // Sync only to the owning player, like Fabric's AttachmentSyncPredicate.targetOnly()
-                    .sync((holder, player) -> holder == player, Unit.STREAM_CODEC)
+                    // Sync only to the owning player, like Fabric's AttachmentSyncPredicate.targetOnly().
+                    // The codec must write at least one byte: NeoForge drops zero-byte payloads
+                    // (e.g. Unit.STREAM_CODEC) from the initial login sync, which would lose the
+                    // flag on the client after every reconnect.
+                    .sync((holder, player) -> holder == player, ByteBufCodecs.BOOL.map(present -> Unit.INSTANCE, unit -> Boolean.TRUE))
                     .copyOnDeath()
                     .build());
 
