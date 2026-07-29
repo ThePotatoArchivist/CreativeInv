@@ -1,31 +1,31 @@
 {
 	"schemaVersion": 1,
-	"id": "subsidy",
+	"id": "creativeinv",
 	"version": "${version}",
-	"name": "Subsidy",
+	"name": "CreativeInv",
 	"description": "Creative inventory in survival mode",
 	"authors": [
 		"ThePotatoArchivist"
 	],
 	"contact": {
-		"homepage": "https://modrinth.com/mod/subsidy",
-		"sources": "https://github.com/ThePotatoArchivist/Subsidy"
+		"homepage": "https://modrinth.com/mod/creative-inv",
+		"sources": "https://github.com/ThePotatoArchivist/CreativeInv"
 	},
 	"license": "MIT",
-	"icon": "assets/subsidy/icon.png",
+	"icon": "assets/creativeinv/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"archives.tater.subsidy.Subsidy"
+			"archives.tater.creativeinv.CreativeInv"
 		],
 		"client": [
-			"archives.tater.subsidy.SubsidyClient"
+			"archives.tater.creativeinv.CreativeInvClient"
 		]
 	},
 	"mixins": [
-		"subsidy.mixins.json",
+		"creativeinv.mixins.json",
 		{
-			"config": "subsidy.client.mixins.json",
+			"config": "creativeinv.client.mixins.json",
 			"environment": "client"
 		}
 	],

@@ -22,7 +22,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"subsidy" {
+		"creativeinv" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}

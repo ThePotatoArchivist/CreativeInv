@@ -1,6 +1,6 @@
-package archives.tater.subsidy.mixin.client;
+package archives.tater.creativeinv.mixin.client;
 
-import archives.tater.subsidy.Subsidy;
+import archives.tater.creativeinv.CreativeInv;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -17,6 +17,6 @@ public class MinecraftMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;hasInfiniteMaterials()Z")
     )
     private boolean check(LocalPlayer instance, Operation<Boolean> original) {
-        return original.call(instance) || Subsidy.hasCreativeInventory(instance);
+        return original.call(instance) || CreativeInv.hasCreativeInventory(instance);
     }
 }

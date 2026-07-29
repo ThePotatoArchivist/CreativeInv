@@ -1,0 +1,6 @@
+{
+  "commands.creativeinv.enable": "Enabled creative inventory for %s",
+  "commands.creativeinv.enable.self": "Enabled own creative inventory",
+  "commands.creativeinv.disable": "Disabled creative inventory for %s",
+  "commands.creativeinv.disable.self": "Disabled own creative inventory"
+}

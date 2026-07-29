@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "archives.tater.subsidy.mixin",
+  "package": "archives.tater.creativeinv.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "AbstractContainerMenuMixin",

@@ -1,4 +1,4 @@
 @NullMarked
-package archives.tater.subsidy;
+package archives.tater.creativeinv;
 
 import org.jspecify.annotations.NullMarked;

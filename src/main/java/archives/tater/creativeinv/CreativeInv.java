@@ -1,4 +1,4 @@
-package archives.tater.subsidy;
+package archives.tater.creativeinv;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
@@ -20,8 +20,8 @@ import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
 
 @SuppressWarnings("UnstableApiUsage")
-public class Subsidy implements ModInitializer {
-	public static final String MOD_ID = "subsidy";
+public class CreativeInv implements ModInitializer {
+	public static final String MOD_ID = "creativeinv";
 
     public static Identifier id(String path) {
         return Identifier.fromNamespaceAndPath(MOD_ID, path);
@@ -53,14 +53,14 @@ public class Subsidy implements ModInitializer {
                     .then(literal("enable")
                             .executes(command -> {
                                 command.getSource().getPlayerOrException().setAttached(CREATIVE_INVENTORY, Unit.INSTANCE);
-                                command.getSource().sendSuccess(() -> Component.translatable("commands.subsidy.enable.self"), true);
+                                command.getSource().sendSuccess(() -> Component.translatable("commands.creativeinv.enable.self"), true);
                                 return 1;
                             })
                             .then(argument("target", EntityArgument.player())
                                     .executes(command -> {
                                         var target = EntityArgument.getPlayer(command, "target");
                                         target.setAttached(CREATIVE_INVENTORY, Unit.INSTANCE);
-                                        command.getSource().sendSuccess(() -> Component.translatable("commands.subsidy.enable", target.getDisplayName()), true);
+                                        command.getSource().sendSuccess(() -> Component.translatable("commands.creativeinv.enable", target.getDisplayName()), true);
                                         return 1;
                                     })
                             )
@@ -68,14 +68,14 @@ public class Subsidy implements ModInitializer {
                     .then(literal("disable")
                             .executes(command -> {
                                 command.getSource().getPlayerOrException().removeAttached(CREATIVE_INVENTORY);
-                                command.getSource().sendSuccess(() -> Component.translatable("commands.subsidy.disable.self"), true);
+                                command.getSource().sendSuccess(() -> Component.translatable("commands.creativeinv.disable.self"), true);
                                 return 1;
                             })
                             .then(argument("target", EntityArgument.player())
                                     .executes(command -> {
                                         var target = EntityArgument.getPlayer(command, "target");
                                         target.removeAttached(CREATIVE_INVENTORY);
-                                        command.getSource().sendSuccess(() -> Component.translatable("commands.subsidy.disable", target.getDisplayName()), true);
+                                        command.getSource().sendSuccess(() -> Component.translatable("commands.creativeinv.disable", target.getDisplayName()), true);
                                         return 1;
                                     })
                             )

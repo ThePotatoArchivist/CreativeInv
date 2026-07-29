@@ -1,6 +1,6 @@
-package archives.tater.subsidy.mixin;
+package archives.tater.creativeinv.mixin;
 
-import archives.tater.subsidy.Subsidy;
+import archives.tater.creativeinv.CreativeInv;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -20,6 +20,6 @@ public class AbstractContainerMenuMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;hasInfiniteMaterials()Z")
     )
     private static boolean check(Player instance, Operation<Boolean> original) {
-        return original.call(instance) || Subsidy.hasCreativeInventory(instance);
+        return original.call(instance) || CreativeInv.hasCreativeInventory(instance);
     }
 }
